@@ -1,0 +1,39 @@
+
+.search-input {
+    display: flex;
+    
+    
+}
+
+.search-input input {
+    width: 100%;
+    height:1.5rem;
+    border-radius: 10px;
+    margin-right: -2.5rem;
+    
+    
+}
+
+.search-icon {
+    height: 2rem;
+    width: 3rem;
+    display: grid;
+    place-items: center;
+    
+    
+}
+
+.search-icon svg {
+    font-size: 30px;
+    color: #250061;
+    
+    cursor: pointer;
+    
+}
+
+
+@media (max-width: 450px) {
+    .search-icon {
+        display: none;
+    }
+  }

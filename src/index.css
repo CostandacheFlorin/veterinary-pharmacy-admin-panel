@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'Myriad';
+  src: url('./assets/fonts/MYRIADPRO-REGULAR.OTF') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: auto;
+}

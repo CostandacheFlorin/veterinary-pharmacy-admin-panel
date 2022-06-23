@@ -1,24 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch, Redirect } from "react-router-dom";
+
+import "./App.css";
+
+import { AuthContext } from "./context/auth-context";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import Footer from "./components/Sections/Footer/Footer";
+import { useAuth } from "./hooks/auth-hook";
+import MainNavigation from "./components/MainNavigation/MainNavigation";
+import AddProduct from "./pages/Products/AddProduct/AddProduct";
+import EditProduct from "./pages/Products/EditProduct/EditProduct";
+import DeleteProduct from "./pages/Products/DeleteProduct/DeleteProduct";
 
 function App() {
+  const { token, login, logout, userId } = useAuth();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AuthContext.Provider
+        value={{
+          isLoggedIn: !!token,
+          token: token,
+          userId,
+          login: login,
+          logout: logout,
+        }}
+      >
+        <MainNavigation />
+        <Switch>
+          <Route path="/autentificare">
+            <Login />
+
+          </Route>
+          <Route path="/inregistrare">
+            <Register />
+          </Route>
+          <Route path="/adauga-produs">
+            <AddProduct />
+          </Route>
+          <Route path="/editeaza-produs">
+            <EditProduct />
+          </Route>
+          <Route path="/sterge-produs">
+          <DeleteProduct/>
+          </Route>
+
+        </Switch>
+
+        {/* <Footer /> */}
+      </AuthContext.Provider>
+    </>
   );
 }
 
