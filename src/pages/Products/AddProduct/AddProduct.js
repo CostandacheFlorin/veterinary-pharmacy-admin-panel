@@ -6,19 +6,18 @@ import { StyledMediumButton } from "../../../components/UIElements/Buttons/Butto
 import DynamicFields from "../../../components/UIElements/DynamicFields/DynamicFields";
 import { useHttpClient } from "../../../hooks/http-hook";
 import ImageUpload from "../../../components/UIElements/ImageUpload/ImageUpload";
-const AddProduct = () => {
-  const [name, setName] = useState("ceva");
-  const [description, setDescription] = useState("descriere");
-  const [price, setPrice] = useState(6);
-  const [usage, setUsage] = useState("cu lipie");
-  const [itemList, setItemList] = useState([
-    { name: "asdad", quantity: "500g" },
-  ]);
-  const [speciesList, setSpeciesList] = useState([
-    { specie: "caine" },
-    { specie: "pisica" },
-  ]);
+import ErrorModal from "../../../components/UIElements/ErrorModal/ErrorModal";
+import LoadingSpinner from "../../../components/UIElements/Loading/LoadingSpinner";
+import { useHistory } from "react-router-dom";
+const AddProduct = ({setIsAdding, fetchMeds}) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [usage, setUsage] = useState("");
+  const [itemList, setItemList] = useState([{ name: "", quantity: "" }]);
+  const [speciesList, setSpeciesList] = useState([{ specie: "" }]);
   const [image, setImage] = useState("");
+  const history = useHistory();
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const changeNameHandler = (value) => {
@@ -44,8 +43,8 @@ const AddProduct = () => {
       formData.append("description", description);
       formData.append("price", price);
       formData.append("usage", usage);
-      formData.append("ingredients", itemList);
-      formData.append("species", speciesList);
+      formData.append("ingredients", JSON.stringify(itemList));
+      formData.append("species", JSON.stringify(speciesList));
       formData.append("image", image);
       const newProduct = {
         name: name,
@@ -70,18 +69,33 @@ const AddProduct = () => {
       await sendRequest(
         "http://localhost:5000/api/products/add-product",
         "POST",
-        formData
+        formData,
+         {
+          
+          Accept: "application/json",
+          type: "formData",
+        }
       );
-
+        history.push("/medicamente");
       console.log("a mers vere");
+      setIsAdding(false);
+      fetchMeds();
     } catch (err) {
       console.log(err);
     }
   };
 
+
+  console.log(name);
   return (
     <>
-      <StyledAddProductContainer onSubmit={submitHandler}>
+       <ErrorModal error={error} onClear={clearError} />
+        {isLoading && <LoadingSpinner size={100} />}
+      {!isLoading && <StyledAddProductContainer onSubmit={submitHandler}>
+     
+
+
+
         <Text type="subtitle" margin="2rem 0" align="center">
           Completeaza campurile pentru a adauga un medicament nou!
         </Text>
@@ -111,7 +125,7 @@ const AddProduct = () => {
         />
         <ImageUpload image={image} sendImage={setImage} />
         <StyledMediumButton>Adauga produs</StyledMediumButton>
-      </StyledAddProductContainer>
+      </StyledAddProductContainer>}
     </>
   );
 };

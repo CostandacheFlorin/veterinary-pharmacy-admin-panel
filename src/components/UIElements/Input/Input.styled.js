@@ -4,7 +4,7 @@ export const StyledInputContainer = styled.div`
 display: flex;
 flex-direction:column;
 font-family: "Myriad", sans-serif;
-color: #0cc2f5;
+color: #000;
 & input {
     width: ${(props) => props.width || "100%"};
     height: ${(props) => props.height || "28px"};
@@ -13,4 +13,8 @@ color: #0cc2f5;
     border-bottom: 2px solid #ebebeb;
 }
 
+
+& label {
+    color: #0cc2f5;
+  }
 `

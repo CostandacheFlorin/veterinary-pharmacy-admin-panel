@@ -73,7 +73,7 @@ const EditProduct = () => {
     //   const ingrediente = [{name: "asd", quantity: "300kg" }];
       setItemList(responseData.product.ingredients);
       setSpeciesList(responseData.product.species);
-
+      console.log(responseData.product.species);
     //   setItemList(itemList => [...itemList,ingrediente] );
       console.log(responseData.product.species);
      
@@ -86,6 +86,8 @@ const EditProduct = () => {
       fetchProduct();
     }
   }, [value]);
+  console.log(speciesList);
+
 
 
 

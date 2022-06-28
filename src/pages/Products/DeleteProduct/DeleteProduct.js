@@ -105,7 +105,6 @@ const DeleteProduct = () => {
         "DELETE"
       );
       history.replace("/gestioneaza-produse");
-      
     } catch (err) {
       console.log(err);
     }

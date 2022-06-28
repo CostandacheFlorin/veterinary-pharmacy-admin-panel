@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -24,7 +25,7 @@ const Login = () => {
   const auth = useContext(AuthContext);
   const [inputError, setInputError] = useState(false);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
+  const history = useHistory();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -54,6 +55,7 @@ const Login = () => {
       auth.login(responseData.userId, responseData.token);
       console.log(responseData);
       console.log(auth);
+      history.push("/");
       
     ;
       

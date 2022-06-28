@@ -12,6 +12,9 @@ import Text from "../Typography/Text";
 const DynamicFields = ({ name, listName, itemArray, setValues }) => {
   const [itemList, setItemList] = useState(itemArray);
 
+
+  // console.log(itemArray);
+
   useEffect(()=> {
     setValues(itemList);
    },[itemList, setValues]);

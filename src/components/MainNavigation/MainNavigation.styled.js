@@ -34,6 +34,9 @@ export const StyledLogoutButton = styled.div`
 
 export const StyledLogoArea = styled.div`
 margin-left: 1rem;
+display: flex;
+align-items: center;
+gap: 1rem;
 
 `
 
@@ -50,4 +53,9 @@ justify-content: flex-end;
 
 `
 export const StyledSearchbarArea = styled.div`
+`
+
+
+export const StyledToggleNavbar = styled.div`
+  
 `

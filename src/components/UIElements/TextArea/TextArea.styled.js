@@ -4,7 +4,7 @@ export const StyledInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   font-family: "Myriad", sans-serif;
-  color: #0cc2f5;
+  color: #000;
   & textarea {
     width: ${(props) => props.width || "100%"};
     height: ${(props) => props.height || "28px"};
@@ -14,5 +14,9 @@ export const StyledInputContainer = styled.div`
     max-height: auto;
     min-height: 80px;
     resize: vertical;
+  }
+
+  & label {
+    color: #0cc2f5;
   }
 `;

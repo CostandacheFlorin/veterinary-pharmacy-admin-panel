@@ -11,17 +11,16 @@ import LogoutButton from "../LogoutButton/LogoutButton";
 
 const MainNavigation = (props) => {
   const auth = useContext(AuthContext);
+
   return (
     <StyledNav>
       <StyledLogoArea>
+        
+
         <Logo />
       </StyledLogoArea>
 
-
-
       <StyledActionsArea>
-      
-        
         {auth.isLoggedIn && <LogoutButton />}
       </StyledActionsArea>
     </StyledNav>
