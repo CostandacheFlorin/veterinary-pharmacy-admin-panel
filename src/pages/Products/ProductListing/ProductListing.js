@@ -53,8 +53,7 @@ const ProductListing = () => {
         object.ingredients = ingrediente.toString();
       });
 
-      console.log(responseData.products);
-      console.log(dataSource);
+ 
 
       setDataSource(responseData.products);
     } catch (err) {}

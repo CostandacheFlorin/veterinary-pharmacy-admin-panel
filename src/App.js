@@ -12,7 +12,10 @@ import EditProduct from "./pages/Products/EditProduct/EditProduct";
 import DeleteProduct from "./pages/Products/DeleteProduct/DeleteProduct";
 import Sidebar from "./components/UIElements/Sidebar/Sidebar";
 import ProductListing from "./pages/Products/ProductListing/ProductListing";
-
+import DataSummary from "../src/components/UIElements/DataSummary/DataSummary";
+import OrdersListing from "./pages/Orders/OrdersListing/OrdersListing";
+import UsersListing from "./pages/Users/UsersListing/UsersListing";
+import Charts from "./pages/Charts/Charts";
 function App() {
   const { token, login,logout, userId } = useAuth();
 
@@ -40,21 +43,22 @@ function App() {
           <Route path="/inregistrare">
             <Register />
           </Route>
-          <Route path="/adauga-produs">
-            <AddProduct />
-          </Route>
-          <Route path="/editeaza-produs">
-            <EditProduct />
-          </Route>
-          <Route path="/sterge-produs">
-          <DeleteProduct/>
-          </Route>
+         
 
           <Route path="/medicamente">
           <ProductListing/>
           </Route>
+          <Route path="/date">
+          <Charts/>
+          </Route>
+          <Route path="/utilizatori">
+          <UsersListing/>
+          </Route>
+          <Route path="/comenzi">
+          <OrdersListing/>
+          </Route>
           <Route path="/" exact>
-         
+          <DataSummary />
           </Route>
 
         </Switch>

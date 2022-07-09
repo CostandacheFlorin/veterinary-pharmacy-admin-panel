@@ -1,7 +1,9 @@
 import React from 'react';
 import MedicationIcon from '@mui/icons-material/Medication';
-import PetsIcon from '@mui/icons-material/Pets';
-import LocalDiningIcon from '@mui/icons-material/LocalDining';
+
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import DataThresholdingIcon from '@mui/icons-material/DataThresholding';
 export const SidebarData = [
     {
         title: "Medicamente",
@@ -9,18 +11,18 @@ export const SidebarData = [
         icon: <MedicationIcon />
     },
     {
-        title: "Hrana",
-        path: "/hrana",
-        icon: <LocalDiningIcon />
+        title: "Utilizatori",
+        path: "/utilizatori",
+        icon: <AccountCircleIcon />
     },
     {
-        title: "Jucarii",
-        path: "/jucarii",
-        icon: <PetsIcon />
+        title: "Comenzi",
+        path: "/comenzi",
+        icon: <PointOfSaleIcon />
     },
     {
-        title: "Altceva",
-        path: "/medicamente",
-        icon: <MedicationIcon />
+        title: "Gestionare date",
+        path: "/date",
+        icon: <DataThresholdingIcon />
     },
 ]

@@ -8,23 +8,23 @@ import {
 import Text from "../Typography/Text";
 import { Link } from "react-router-dom";
 
-const DataBlock = ({title, text, link, linklabel, ...props}) => {
+const DataBlock = ({title, text, link, linklabel, backgroundColor, color, ...props}) => {
   return (
-    <StyledDataBlockWrapper>
-      <StyledDataBlockTitle>
+    <StyledDataBlockWrapper backgroundColor={backgroundColor}>
+      <StyledDataBlockTitle >
         {" "}
-        <Text type="subtitle" margin="0 1rem" color="#0cc2f5" bold={true}>
+        <Text bold={true} type="subtitle" align={"center"} margin="0 1rem" color={color} >
           {title}
         </Text>
       </StyledDataBlockTitle>
-      <StyledDataBlockText>
-        <Text type="text" margin="0 1rem" size="large" color="#454545">
+      <StyledDataBlockText >
+        <Text  bold={true} align={"center"} type="text" margin="0 1rem" size="large" color={color}>
          {text}
         </Text>
       </StyledDataBlockText>
       <StyledDataBlockLink>
         <Link to={`/${link}`}>
-        <Text type="text" size="medium" color="#454545">
+        <Text bold="true" type="text" align={"left"} margin="0 2rem" size="medium" color={color}>
           {linklabel}
         </Text>
         </Link>
