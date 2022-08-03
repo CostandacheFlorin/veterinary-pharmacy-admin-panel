@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ProductFields from "../../../components/ProductFields/ProductFields";
 import { StyledAddProductContainer } from "./AddProduct.styled";
 import Text from "../../../components/UIElements/Typography/Text";
@@ -9,6 +9,7 @@ import ImageUpload from "../../../components/UIElements/ImageUpload/ImageUpload"
 import ErrorModal from "../../../components/UIElements/ErrorModal/ErrorModal";
 import LoadingSpinner from "../../../components/UIElements/Loading/LoadingSpinner";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../../context/auth-context";
 const AddProduct = ({setIsAdding, fetchMeds}) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -19,6 +20,7 @@ const AddProduct = ({setIsAdding, fetchMeds}) => {
   const [image, setImage] = useState("");
   const history = useHistory();
 
+  const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const changeNameHandler = (value) => {
     setName(value);
@@ -74,6 +76,7 @@ const AddProduct = ({setIsAdding, fetchMeds}) => {
           
           Accept: "application/json",
           type: "formData",
+          Authorization: `Bearer ${auth.token} `
         }
       );
         history.push("/medicamente");

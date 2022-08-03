@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import { Table, Modal, Button } from "antd";
 import EditIcon from "@mui/icons-material/Edit";
@@ -13,7 +13,9 @@ import { useHistory } from "react-router-dom";
 import AddProduct from "../AddProduct/AddProduct";
 import ErrorModal from "../../../components/UIElements/ErrorModal/ErrorModal";
 import LoadingSpinner from "../../../components/UIElements/Loading/LoadingSpinner";
+import { AuthContext } from "../../../context/auth-context";
 const ProductListing = () => {
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
@@ -25,6 +27,7 @@ const ProductListing = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingMed, setEditingMed] = useState({});
   const [dataSource, setDataSource] = useState();
+  const auth = useContext(AuthContext);
 
   const history = useHistory();
 
@@ -37,12 +40,6 @@ const ProductListing = () => {
       );
 
       responseData.products.forEach((object) => {
-        delete object["id"];
-        delete object["_id"];
-        delete object["category"];
-        delete object["image"];
-        delete object["__v"];
-
         let specii = object.species.map((a) => a.specie);
 
         object.species = specii.toString();
@@ -52,8 +49,6 @@ const ProductListing = () => {
         );
         object.ingredients = ingrediente.toString();
       });
-
- 
 
       setDataSource(responseData.products);
     } catch (err) {}
@@ -68,15 +63,17 @@ const ProductListing = () => {
   };
 
   const onEditHandler = (record) => {
+    setId(record.id);
     setIsEditing(true);
     setName(record.name);
     setDescription(record.description);
     setPrice(record.price);
     setUsage(record.usage);
+    console.log(record);
   };
 
   const editProduct = async () => {
-      const editedProduct = {
+    const editedProduct = {
       name,
       price,
       description,
@@ -86,19 +83,17 @@ const ProductListing = () => {
     };
     console.log(editedProduct);
     const responseData = await sendRequest(
-      `http://localhost:5000/api/products/edit-product/${name}`,
+      `http://localhost:5000/api/products/edit-product/${id}`,
       "PATCH",
       JSON.stringify(editedProduct),
       {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${auth.token}`,
       }
     );
 
     fetchMeds();
   };
-
-  console.log(itemList);
-  console.log(speciesList);
 
   const onDeleteHandler = (record) => {
     Modal.confirm({
@@ -108,7 +103,11 @@ const ProductListing = () => {
         try {
           await sendRequest(
             `http://localhost:5000/api/products/delete-product/${record.name}`,
-            "DELETE"
+            "DELETE",
+            null,
+            {
+              Authorization: `Bearer ${auth.token}`,
+            }
           );
           fetchMeds();
         } catch (err) {
@@ -197,7 +196,7 @@ const ProductListing = () => {
 
   return (
     <>
-    {isLoading && <LoadingSpinner size={150} />}
+      {isLoading && <LoadingSpinner size={150} />}
       <div style={{ width: "100%" }}>
         <StyledMediumButton
           onClick={onAddHandler}
@@ -209,7 +208,7 @@ const ProductListing = () => {
 
       <Table columns={columns} dataSource={dataSource}></Table>
       <Modal
-      width={"80%"}
+        width={"80%"}
         title={"Editeaza medicament"}
         visible={isEditing}
         okText="Salveaza"
@@ -245,7 +244,6 @@ const ProductListing = () => {
           itemArray={speciesList}
           setValues={setSpeciesList}
         />
-
       </Modal>
 
       <Modal

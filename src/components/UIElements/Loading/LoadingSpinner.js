@@ -5,7 +5,7 @@ import Text from '../Typography/Text';
 const LoadingSpinner = (props) => {
     return (
         <StyledLoadingArea>
-            <Text bold="true" type="subtitle" margin="1rem 0">Se incarca...</Text>
+            <Text bold="true" color={"#fff"} type="subtitle" margin="1rem 0">Asteptati...</Text>
             <CircularProgress size={props.size} />
         </StyledLoadingArea>
 
